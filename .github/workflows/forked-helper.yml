@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Dispatch event on forked repository
-        if: ${{ env.DISPATCH_SECRET != '' }}  # Check that the secret has been set, if not, exit
+        if: ${{ env.DISPATCH_SECRET != '' }}  # Check that the secret has been set, if not, exit.
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ env.DISPATCH_SECRET }}
