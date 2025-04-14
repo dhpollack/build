@@ -1,0 +1,14 @@
+name: "Build Armbian"
+on:
+  workflow_dispatch:
+jobs:
+  build-armbian:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: armbian/build@main
+        with:
+          armbian_token: "${{ secrets.GITHUB_TOKEN }}" # GitHub token
+          armbian_release: "bookworm" # userspace
+          armbian_target: "build" # build=image, kernel=kernel
+          armbian_board: "orangepizero3" # build target
+          armbian_ui: "minimal"
