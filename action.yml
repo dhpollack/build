@@ -2,7 +2,6 @@ name: "Rebuild Armbian"
 author: "https://github.com/armbian"
 description: "Build Armbian Linux"
 inputs:
-
   armbian_token:
     description: "GitHub installation access token"
     required: true
@@ -95,7 +94,6 @@ runs:
   using: "composite"
 
   steps:
-
     - name: Free Github Runner
       if: ${{ inputs.armbian_runner_clean != '' }}
       uses: descriptinc/free-disk-space@main
@@ -187,6 +185,7 @@ runs:
         ENABLE_EXTENSIONS="${{ inputs.armbian_extensions }}" \
         COMPRESS_OUTPUTIMAGE="${{ inputs.armbian_compress }}" \
         SHARE_LOG="yes" \
+        ROOTFS_TYPE="nfs" \
         EXPERT="yes"
 
     - name: Sign
@@ -213,4 +212,3 @@ runs:
 branding:
   icon: "check"
   color: "red"
-

@@ -12,4 +12,3 @@ jobs:
           armbian_target: "build" # build=image, kernel=kernel
           armbian_board: "orangepizero3" # build target
           armbian_ui: "minimal"
-          armbian_extensions: "bootpartitions"
