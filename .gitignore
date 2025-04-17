@@ -15,8 +15,9 @@ ubuntu-*-cloudimg-console.log
 /.tmp/
 /output/
 /cache/
-/*userpatches*/
-/userpatches
+# disable ignoring userpatches
+#/*userpatches*/
+#/userpatches
 
 ### General annoyances ###
 .DS_Store
