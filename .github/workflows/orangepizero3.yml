@@ -6,6 +6,8 @@ jobs:
     runs-on: ubuntu-24.04-arm
     steps:
       - uses: armbian/build@main
+        env:
+          ROOTFS_TYPE: nfs
         with:
           armbian_token: "${{ secrets.GITHUB_TOKEN }}" # GitHub token
           armbian_release: "bookworm" # userspace
