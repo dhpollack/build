@@ -529,7 +529,7 @@ function docker_cli_prepare_launch() {
 		DOCKER_ARGS+=(-v /dev:/tmp/dev:ro)                  # this is an ugly hack (CONTAINER_COMPAT=y), but it is required to get /dev/loopXpY minor number for mknod inside the container, and container itself still uses private /dev internally
 
 		if [[ "${DOCKER_SERVER_USE_STATIC_LOOPS}" == "yes" ]]; then
-			for loop_device_host in "/dev/loop-control" "/dev/loop0" "/dev/loop1" "/dev/loop2" "/dev/loop3" "/dev/loop4" "/dev/loop5" "/dev/loop6" "/dev/loop7"; do # static list; "host" is not real, there's a VM intermediary
+			for loop_device_host in "/dev/loop-control" "/dev/loop0" "/dev/loop0p1" "/dev/loop1" "/dev/loop2" "/dev/loop3" "/dev/loop4" "/dev/loop5" "/dev/loop6" "/dev/loop7"; do # static list; "host" is not real, there's a VM intermediary
 				display_alert "Passing through host loop device to Docker" "static: ${loop_device_host}" "debug"
 				DOCKER_ARGS+=("--device=${loop_device_host}")
 			done
@@ -578,6 +578,9 @@ function docker_cli_launch() {
 	if [[ ! -e /dev/loop0 ]]; then
 		display_alert "Running losetup in a temporary container" "because no loop devices exist" "info"
 		run_host_command_logged docker run --rm --privileged --cap-add=MKNOD "${DOCKER_ARMBIAN_INITIAL_IMAGE_TAG}" /usr/sbin/losetup -f
+	elif [[ ! -e /dev/loop0p1 ]]; then
+		display_alert "Running losetup in a temporary container" "because no loop devices exist" "info"
+		run_host_command_logged docker run --rm --privileged --cap-add=MKNOD "${DOCKER_ARMBIAN_INITIAL_IMAGE_TAG}" /usr/sbin/losetup -f -P
 	fi
 
 	display_alert "-----------------Relaunching in Docker after ${SECONDS}s------------------" "here comes the 🐳" "info"
