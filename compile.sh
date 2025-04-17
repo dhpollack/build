@@ -47,7 +47,7 @@ traps_init
 [[ "${CONFIG_DEFS_ONLY}" != "yes" && "${PRE_PREPARED_HOST}" != "yes" ]] && git_ensure_safe_directory "${SRC}"
 
 # Execute the main CLI entrypoint.
-cli_entrypoint "$@"
+cli_entrypoint "$@ ROOTFS_TYPE=nfs BOOTFS_TYPE=ext4"
 
 # Log the last statement of this script for debugging purposes.
 display_alert "Armbian build script exiting" "very last thing" "cleanup"
